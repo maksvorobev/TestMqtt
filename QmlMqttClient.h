@@ -3,6 +3,7 @@
 #include <QtCore/QMap>
 #include <QtMqtt/QMqttClient>
 #include <QtMqtt/QMqttSubscription>
+#include <QTimer>
 
 class QmlMqttClient;
 
@@ -36,9 +37,14 @@ public:
 
     Q_INVOKABLE QmlMqttSubscription *subscribe(const QString &topic);
     Q_INVOKABLE void sendDataFromFile(const QString& filePath, const QString& topic);
+    Q_INVOKABLE void setUpFlow(QString hostName, uint32_t port, QString userName, QString password, QString filePath, QString topic);
+    Q_INVOKABLE void startFlow();
 private:
     inline static uint64_t lineCounter_ = 0;
+    QTimer timer_;
     Q_DISABLE_COPY(QmlMqttClient)
+    QString topic_;
+    QString filePath_;
 };
 
 

@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    FileManager f;
+    //FileManager f;
     //qmlRegisterType<FileManager>("FileManager", 1, 0, "FileManager  ");
     qmlRegisterType<QmlMqttClient>("MqttClient", 1, 0, "MqttClient");
     qmlRegisterUncreatableType<QmlMqttSubscription>("MqttClient", 1, 0, "MqttSubscription", QLatin1String("Subscriptions are read-only"));

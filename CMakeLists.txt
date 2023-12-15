@@ -20,6 +20,7 @@ find_package(Qt6 COMPONENTS Gui)
 find_package(Qt6 COMPONENTS Qml)
 find_package(Qt6 COMPONENTS Quick)
 find_package(Qt6 COMPONENTS Mqtt)
+find_package(Qt6 COMPONENTS Widgets)
 
 qt_add_executable(quicksubscription
     main.cpp
@@ -41,6 +42,7 @@ target_link_libraries(quicksubscription PUBLIC
     Qt::Mqtt
     Qt::Qml
     Qt::Quick
+    Qt::Widgets
 )
 
 # Resources:

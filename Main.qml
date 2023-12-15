@@ -46,7 +46,7 @@ Window {
 
         Label {
             text: "host:"
-            enabled: client.state === MqttClient.Disconnected
+            //enabled: client.state === MqttClient.Disconnected
         }
 
         TextField {
@@ -54,12 +54,12 @@ Window {
             Layout.fillWidth: true
             text: "test.mosquitto.org"
             placeholderText: "<Enter host running MQTT broker>"
-            enabled: client.state === MqttClient.Disconnected
+            //enabled: client.state === MqttClient.Disconnected
         }
 
         Label {
             text: "port:"
-            enabled: client.state === MqttClient.Disconnected
+            //enabled: client.state === MqttClient.Disconnected
         }
 
         TextField {
@@ -68,12 +68,12 @@ Window {
             text: "1883"
             placeholderText: "<Port>"
             inputMethodHints: Qt.ImhDigitsOnly
-            enabled: client.state === MqttClient.Disconnected
+            //enabled: client.state === MqttClient.Disconnected
         }
 
         Label {
             text: "username:"
-            enabled: client.state === MqttClient.Disconnected
+            //enabled: client.state === MqttClient.Disconnected
         }
 
         TextField {
@@ -82,12 +82,12 @@ Window {
             text: ""
             placeholderText: "may be empty"
             inputMethodHints: Qt.ImhDigitsOnly
-            enabled: client.state === MqttClient.Disconnected
+            //enabled: client.state === MqttClient.Disconnected
         }
 
         Label {
             text: "password:"
-            enabled: client.state === MqttClient.Disconnected
+            //enabled: client.state === MqttClient.Disconnected
         }
 
         TextField {
@@ -96,14 +96,14 @@ Window {
             text: ""
             placeholderText: "may be empty"
             inputMethodHints: Qt.ImhDigitsOnly
-            enabled: client.state === MqttClient.Disconnected
+            //enabled: client.state === MqttClient.Disconnected
         }
 
 
 
         Label {
             text: "filepath:"
-            enabled: client.state === MqttClient.Disconnected
+            //enabled: client.state === MqttClient.Disconnected
         }
 
         TextField {
@@ -112,7 +112,7 @@ Window {
             text: ""
             placeholderText: "filepath"
             inputMethodHints: Qt.ImhDigitsOnly
-            enabled: client.state === MqttClient.Disconnected
+            //enabled: client.state === MqttClient.Disconnected
         }
 
 
@@ -131,7 +131,7 @@ Window {
                 text: "piklema/test"
                 placeholderText: "<Subscription topic>"
                 Layout.fillWidth: true
-                enabled: tempSubscription === 0
+                //enabled: tempSubscription === 0
             }
 
 
@@ -142,6 +142,15 @@ Window {
                 Layout.fillWidth: true
                 text: client.state === MqttClient.Connected ? "Disconnect" : "RUN"
                 onClicked: {
+
+                    console.log(hostnameField.text)
+                    console.log(portField.text)
+                    console.log(usernameField.text)
+                    console.log(passwordField.text)
+                    console.log(filepathField.text)
+                    client.setUpFlow(hostnameField.text, portField.text, usernameField.text, passwordField.text, filepathField.text, subField.text)
+                    client.startFlow();
+                    /*
                     if (client.state === MqttClient.Connected) {
                         client.disconnectFromHost()
                         messageModel.clear()
@@ -153,8 +162,9 @@ Window {
                         client.setPassword(passwordField.text)
                         client.connectToHost()
                         client.sendDataFromFile(filepathField.text)
-
+                */
                 }
+
             }
         }
 

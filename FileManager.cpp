@@ -1,33 +1,37 @@
 #include "FileManager.h"
+#include <QDebug>
+#include <optional>
 
-std::pair<QString, bool> FileManager::readFromFile()
+FileManager::FileManager(QString filePath): file_(filePath), in_(&file_)
 {
-    QFile file("/home/max/TestMqtt/input.txt");
-    if(!file.open(QIODevice::ReadOnly)) {
-        std::cout << file.errorString().toStdString();
+    if(!file_.open(QIODevice::ReadOnly)) {
+        qCritical() << file_.errorString();
+    }
+    else {
+        qInfo() << "input data file successfully openned !!!";
+    }
+}
+
+std::optional<QString> FileManager::getLineFromFile()
+{
+    /*
+     * Read file line-by-line and return next line.
+     */
+
+    bool fl = in_.atEnd();
+    if (!fl){
+        return in_.readLine();
     }
 
-    QTextStream in(&file);
-
-    bool fl = !in.atEnd();
-    if (fl) {
-        QString line = in.readLine();
-        std::cout << line.toStdString();
-        return std::pair(line, fl);
-    }
-
-
-    file.close();
-    return {"", fl};
+    return {};
 }
 
-QString FileManager::filePath() const
+FileManager::~FileManager()
 {
-    return QString::fromStdString(filePath_);
+    file_.close();
 }
 
 
-void FileManager::setFilePath(const QString& filePath){
-    filePath_ = filePath.toStdString();
-    std::cout << filePath_;
-}
+
+
+
